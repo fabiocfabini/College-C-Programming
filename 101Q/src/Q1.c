@@ -242,7 +242,7 @@ int iguaisConsecutivos (char s[]){
 //? 16
 int stringElem(char* start, char* finish, char p){
     for(;start != finish; start++){
-        if(*start == *finish) return 1;
+        if(*start == p) return 1;
     }return 0;
 }
 int difConsecutivos (char s[]){
