@@ -6,8 +6,5 @@
 #include "Q2.h"
 
 int main(int argc, char **argv){
-    
-    printf("%d",difConsecutivos("Mundo cruel!"));
-
     return 0;
 }
