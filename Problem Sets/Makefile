@@ -9,7 +9,7 @@ BIN_NAME = main
 CXX = gcc
 LD  = gcc
 
-CXXFLAGS   = -O2 -std=c99 -Wall -ggdb
+CXXFLAGS   = -O2 -Wall -ggdb
 
 SRC_DIR = src
 BIN_DIR = bin
@@ -27,10 +27,10 @@ vpath %.c $(SRC_DIR)
 .DEFAULT_GOAL = all
 
 $(BUILD_DIR)/%.o: %.c
-	$(CXX) -c $(CXXFLAGS) $< -o $@
+	$(CXX) -c $(CXXFLAGS) $< -o $@ -lm
 
 $(BIN_DIR)/$(BIN_NAME): $(OBJ)
-	$(CXX) $(CXXFLAGS) -o $@ $(OBJ)
+	$(CXX) $(CXXFLAGS) -o $@ $(OBJ) -lm
 
 checkdirs:
 	@mkdir -p $(BUILD_DIR)

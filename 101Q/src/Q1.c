@@ -2,7 +2,6 @@
 #include <string.h>
 #include <math.h>
 #include <limits.h>
-#include <math.h>
 #include "Q1.h"
 
 //? 1

@@ -72,7 +72,7 @@ int main(int argc, char *argv[]){
             r3 = mdc3 (a,b);
             printf ("\t[Results of mdc]: %d, %d, %d\n", r1, r2, r3);
 
-            printf ("\t[Input two numbers to calculate it's fibonacci]: ");
+            printf ("\t[Input a number to calculate it's fibonacci]: ");
             scanf ("%d", &a);
             printf ("\t\tFib2 (%d) = %d \n", a, fib2 (a));
             printf ("\t\tFib1 (%d) = %d \n", a, fib1 (a));
