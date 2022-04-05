@@ -155,9 +155,9 @@ int isVowel (char c){
 void takeFirstChar(char* s){
     if(*s != '\0'){
         char* aux = s;
-        for(; *(aux+1) != '\0'; aux++){
+        for(; *aux; aux++){
             *aux = *(aux+1);
-        }*aux = *(aux+1);
+        }
     }
 }
 void mystrnoV (char s[]){
