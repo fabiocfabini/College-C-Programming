@@ -671,11 +671,9 @@ int caminho (Posicao inicial, Posicao final, Movimento mov[], int N){
         if(inicial.x < final.x){
             mov[i] = Este;
             inicial.x++;
-            continue;
         }else if(inicial.x > final.x){
             mov[i] = Oeste;
             inicial.x--;
-            continue;
         }
         if(inicial.y < final.y){
             mov[i] = Norte;
