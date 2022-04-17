@@ -4,7 +4,31 @@
 #include <time.h>
 #include "storage.h"
 
-
+//* Helpfull functions
+void showStack(STACK s){
+    for (int i = 0; i < s.sp; i++){
+        printf("%d ", s.values[i]);
+    }
+    printf("\t[CURRENT STACK SIZE] %d\n", s.sp);
+}
+void showQueue(QUEUE q){
+    for(int i = 0; i < q.length; i++){
+        printf("%d ", q.values[(q.front + i) % Max]);
+    }
+    printf("\t[CURRENT QUEUE SIZE] %d\n", q.length);
+}
+void showDStack(struct dinStack s){
+    for(int i = 0; i < s.sp; i++){
+        printf("%d ", s.values[i]);
+    }
+    printf("\t[CURRENT STACK SIZE] %d\n", s.size);
+}
+void showDQueue(struct dinQueue q){
+    for(int i = 0; i < q.length; i++){
+        printf("%d ", q.values[(q.front + i) % q.size]);
+    }
+    printf("\t[CURRENT QUEUE SIZE] %d\n", q.size);
+}
 
 //! Stacks
 
@@ -42,44 +66,42 @@ int Stop (SStack s, int *x){
     }return 1;
 }
 
-
 //! Queues
 
-//? 1a
-void SinitQueue (SQueue q){
-    q->length = 0;
+//? 2a
+void SinitQueue(SQueue q){
     q->front = 0;
+    q->length = 0;
 }
 
-//? 1b
+//? 2b
 int SisEmptyQ (SQueue q){
-    return q->length == q->front;
+    return q->length == 0;
 }
 
-//? 1c
+//? 2c
 int Senqueue (SQueue q, int x){
-    if(q->length < Max){
-        q->values[q->length++] = x;
-        return 0;
-    }return 1;
+    if(q->length >= Max) return 1;
+    q->values[(q->front + q->length) % Max] = x;
+    q->length++;
+    return 0;
 }
 
-//? 1d
+//? 3c
 int Sdequeue (SQueue q, int *x){
-    if(!SisEmptyQ(q)){
-        *x = q->values[q->front++];
-        return 0;
-    }return 1;
+    if(SisEmptyQ (q)) return 1;
+    *x = q->values[q->front];
+    q->front = (q->front + 1) % Max;
+    q->length--;
+    return 0;
 }
 
-//? 1e
-int Sfront (SQueue q, int *x){
-    if(!SisEmptyQ(q)){
-        *x = q->values[q->front];
-        return 0;
-    }return 1;
+//? 4c
+int Sfront(SQueue q, int *x){
+    if(SisEmptyQ (q)) return 1;
+    *x = q->values[q->front];
+    return 0;
 }
-
 
 //! DStack
 
@@ -137,44 +159,48 @@ void DinitQueue (DQueue q){
     q->size = Max;
     q->front = 0;
     q->length = 0;
-    q->values = (int*) malloc(sizeof(int)*Max);
+    q->values = malloc(q->size*sizeof(int));
 }
 
 //? 3b2
 int DisEmptyQ (DQueue q){
-    return q->front == q->length;
+    return q->length == 0;
 }
 
 //? 3b3
 int Denqueue (DQueue q, int x){
     if(q->length == q->size){
-        printf("\t\t\t[Resizing Queue ...]\n");
-        int* new_values = (int *) malloc(sizeof(int)*q->size*2);
-        for (int i = 0; i < q->size; i++){
-            new_values[i] = q->values[i];
+        int* new_value = malloc(2*q->size*sizeof(int));
+        for(int i = 0; i < q->length; i++){
+            new_value[i] = q->values[(q->front + i) % q->length];
         }
-        free(q->values);
-        q->values = new_values;
-        q->values[q->length++] = x;
-        q->size *= 2;
-    }else{
-        q->values[q->length++] = x;
+        free(q->values); q->values = new_value;
+        q->size *= 2; q->front = 0;
     }
+    q->values[(q->front + q->length) % q->size] = x;
+    q->length++;
     return 0;
 }
 
 //? 3b4
 int Ddequeue (DQueue q, int *x){
-    if(!DisEmptyQ(q)){
-        *x = q->values[q->front++];
-        return 0;
-    }return 1;
+    // if(q->length == q->size / 4){
+    //     int* new_values = malloc(q->size/2 * sizeof(int));
+    //     for(int i = 0; i < q->length; i++){
+    //         new_values[i] = q->values[(q->front + i) % q->size];
+    //     }
+    //     free(q->values); q->values = new_values;
+    //     q->size /= 2; q->front = 0;
+    // }
+    if(DisEmptyQ(q)) return 1;
+    *x = q->values[q->front]; q->front = (q->front + 1) % q->size;
+    q->length--;
+    return 0;
 }
 
-//? 3b5
+
 int Dfront (DQueue q, int *x){
-    if(!DisEmptyQ(q)){
-        *x = q->values[q->front];
-        return 0;
-    }return 1;
+    if(DisEmptyQ(q)) return 1;
+    *x = q->values[q->front];
+    return 0;
 }

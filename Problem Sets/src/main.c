@@ -30,7 +30,7 @@ int main(int argc, char *argv[]){
         else if(erro == 3) printf("Chose a valid problem set");
         return 0;
     }
-    
+
     switch (problemSetNum)
     {
     case 1:
@@ -212,8 +212,8 @@ int main(int argc, char *argv[]){
             srand(time(NULL));
             int n;
 
-            struct dinQueue q1;
             struct dinStack s1;
+            struct dinQueue q1;
 
             DStack S = &s1;
             DQueue Q = &q1;
@@ -235,13 +235,13 @@ int main(int argc, char *argv[]){
                     if(Ddequeue(Q,&n) != 0) printf("\t\t[ERROR] EMPTY QUEUE\n");
                 }
                 printf("\t\t\t[Current Stack] ");
-                print_array(S->values,S->sp);
+                showDStack(s1);
                 printf("\t\t\t[Current Queue] ");
-                print_array(Q->values+Q->front,Q->length-Q->front);
+                showDQueue(q1);
             }
             free(S->values);
             free(Q->values);
-            printf("[END OF SCRIPT]");
+            printf("[END OF SCRIPT]\n");
         }
         break;
     case 7:

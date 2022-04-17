@@ -78,7 +78,7 @@ void cipNameRec (Aluno t[], int ind[], int N);
 typedef struct staticStack{
     int sp;
     int values[Max];
-}Stack, *SStack;
+}STACK, *SStack;
 
 typedef struct staticQueue{
     int front;
@@ -99,6 +99,11 @@ typedef struct dinQueue {
     int *values;
 } *DQueue;
 
+//* Helpfull functions
+void showStack(STACK s);
+void showQueue(QUEUE q);
+void showDStack(struct dinStack s);
+void showDQueue(struct dinQueue q);
 
 /* 1a */ void SinitStack(SStack s); 
 /* 1b */ int SisEmpty (SStack s);
