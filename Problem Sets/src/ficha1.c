@@ -159,6 +159,17 @@ void upTriangle(int n){
     }
 }
 
-
+void circle(int n){
+    for (int x = -n; x <= n; x++){
+        printf("\t\t");
+        for (int y = -n; y <= n; y++){
+            if (n*n <= x*x + y*y){
+                putchar('#');
+            }
+            else putchar(' ');
+        }
+        putchar('\n');
+    }
+}
 
 

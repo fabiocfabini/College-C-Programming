@@ -12,6 +12,7 @@ void simNao (int x);
 /* 2 */ void chessBoard(int n);
 /* 3 a*/ void sideTriangle(int n);
 /* 3 b*/ void upTriangle(int n);
+/* 4 */void circle(int n);
 
 //! Ficha 2
 

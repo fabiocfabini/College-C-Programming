@@ -46,8 +46,11 @@ int main(int argc, char *argv[]){
             printf("\n\t[Drawing a side triangle]\n");
             sideTriangle(10);
 
-            printf("\n\t[Drawing a up triangle]\n");
+            printf("\n\t[Drawing an up triangle]\n");
             upTriangle(10);
+
+            printf("\n\t[Drawing a circle]\n");
+            circle(10);
 
             printf("\n[END OF SCRIPT]\n");
         }
@@ -448,7 +451,7 @@ int main(int argc, char *argv[]){
 
             printf("\t\t[Elements less than 9]: "); imprimeAte(a2, 9);
 
-            freeABin(a1);
+            freeABin(a2);
 
 
             printf("\n\n[END OF SCRIPT]\n\n");
