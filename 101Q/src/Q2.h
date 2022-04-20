@@ -24,8 +24,6 @@ typedef struct nodo {
 /* 11*/ int removeAll (LInt *l, int x);
 /* 12*/ int removeDups (LInt *);
 /* 13*/ int removeMaiorL (LInt *);
-        void removeFirstOc(LInt *l, int x);
-        int LIntMax(LInt l);
 /* 14*/ void init (LInt *l);
 /* 15*/ void appendL (LInt *l, int x);
 /* 16*/ void concatL (LInt *a, LInt b);

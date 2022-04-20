@@ -22,273 +22,167 @@ void freeL (LInt l){
 
 //? 3
 void imprimeL (LInt l){
-    LInt aux = l;
-    for(; aux; aux = aux->prox){
-        printf("%d -> ", aux->valor);
+    for(; l; l = l->prox){
+        printf("%d -> ", l->valor);
     }printf("NULL\n");
 }
 
 //? 4
 LInt reverseL (LInt l){
-    if(!l) return NULL;
-    if(!l->prox) return l;
-
-    LInt prev = l;
-    LInt curr = l->prox;
-    prev->prox = NULL;
-
-    while(curr){
-        LInt next = curr->prox;
-        curr->prox = prev;
-        prev = curr;
-        curr = next;
+    LInt ant = NULL;
+    while(l){
+        LInt temp = l->prox;
+        l->prox = ant;
+        ant = l;
+        l = temp;
     }
-
-    return prev;
+    l = ant;
+    return l;
 }
 
 //? 5
 void insertOrd (LInt *l, int x){
-    LInt new = (LInt) malloc(sizeof(struct lligada));
-    new->valor = x;
-    if(!*l){
-        new->prox = NULL;
-        *l = new;
-    }else if((*l)->valor >= x){
-        new->prox = *l;
-        *l = new;
-    }else{
-        LInt prev = *l;
-        LInt curr = (*l)->prox;
-        for(; curr && curr->valor < x; curr = curr->prox) prev = curr;
-        if(curr){
-            new->prox = curr;
-            prev->prox = new;
-        }else{
-            new->prox = NULL;
-            prev->prox = new;
-        }
+    while(*l && (*l)->valor < x){
+        l = &((*l)->prox);
     }
+    LInt new = newLInt(x, *l);
+    *l = new;
 }
 
 //? 6
 int removeOneOrd (LInt *l, int x){
-    if(!(*l)) return 1;
-    if(!(*l)->prox){
-        if((*l)->valor == x){free(*l); *l = NULL; return 0;}
-        else return 1;
+    while(*l && (*l)->valor != x){
+        l = &((*l)->prox);
     }
-
-    LInt prev = *l;
-    LInt curr = (*l)->prox;
-
-    for(; curr && curr->valor < x ; curr = curr->prox) prev = curr;
-
-    if(curr && curr->valor == x){
-        prev->prox = curr->prox;
-        free(curr);
-        return 0;
-    }return 1;
+    if(!(*l)) return 1;
+    LInt temp = (*l)->prox;
+    free(*l);
+    *l = temp;
+    return 0;
 }
 
 //? 7
-void mergeL (LInt *r, LInt a, LInt b){
-    *r = malloc(sizeof(struct lligada));
-    LInt aDup = a;
-    LInt bDup = b;
-
-    while(aDup && bDup){
-        if(aDup->valor <= bDup->valor){
-            (*r)->valor = aDup->valor;
-            aDup = aDup->prox;
+void mergeL (LInt *r, LInt l1, LInt l2){
+    while(l1 && l2){
+        if(l1->valor <= l2->valor){
+            *r = l1;
+            l1 = l1->prox;
         }else{
-            (*r)->valor = bDup->valor;
-            bDup = bDup->prox;
+            *r = l2;
+            l2 = l2->prox;
         }
-        (*r)->prox = malloc(sizeof(struct lligada));
-        r = &(*r)->prox;
+        r = &((*r)->prox);
     }
-    while(aDup){
-        (*r)->valor = aDup->valor;
-        aDup = aDup->prox;
-        (*r)->prox = malloc(sizeof(struct lligada));
-        r = &(*r)->prox;
-    }
-    while(bDup){
-        (*r)->valor = bDup->valor;
-        bDup = bDup->prox;
-        (*r)->prox = malloc(sizeof(struct lligada));
-        r = &(*r)->prox;
-    }
-    *r = NULL;
+    
+    if(l1) *r = l1;
+    else *r = l2;
 }
 
 //? 8
 void splitQS (LInt l, int x, LInt *mx, LInt *Mx){
-    /*
-    while (l)
-    {
-        if (l->valor < x)
-        {
+    *mx = NULL; *Mx = NULL;
+    
+    while(l){
+        if(l->valor < x){
             *mx = l;
-            mx = &(*mx)->prox;
-            *Mx = NULL;
-        }else
-        {
+            mx = &((*mx)->prox);
+        }else{
             *Mx = l;
-            Mx = &(*Mx)->prox;
-            *mx = NULL;
+            Mx = &((*Mx)->prox);
         }
         l = l->prox;
     }
-    */
-    *mx = NULL;
-    *Mx = NULL;
-    LInt temp;
-    while(l){
-        if(l->valor < x){
-            temp = l->prox;
-            l->prox = *mx;
-            *mx = l;
-            l = temp;
-        }else{
-            temp = l->prox;
-            l->prox = *Mx;
-            *Mx = l;
-            l = temp;
-        }
-    }
+    
+    *mx = NULL; *Mx = NULL;
 }
 
 //? 9
 LInt parteAmeio (LInt *l){
-    if(!(*l) || !(*l)->prox) return NULL;
-    int mid = length(*l) / 2;
-
-    LInt out = *l;
-    for(; mid > 1; mid--, *l = (*l)->prox);
-    LInt temp = (*l)->prox;
-
-    (*l)->prox = NULL;
-    *l = temp;
-    return out;
+    int mid = length(*l)/2;
+    LInt y = *l; LInt* curr = &y;
+    
+    while(mid > 0){
+        curr = &((*curr)->prox);
+        mid--;
+    }
+    
+    *l = *curr;
+    *curr = NULL;
+    return y;
 }
 
 //? 10
 int removeAll (LInt *l, int x){
-    int count = 0;
-    if(*l){
-        while(*l && (*l)->valor == x){
-            count++;
+    int c = 0;
+    while(*l){
+        if((*l)->valor == x){
             LInt temp = (*l)->prox;
-            free(*l); *l = temp;
-        }
-        if(*l){
-            LInt aux = *l;
-            for(; aux && aux->prox; aux = aux->prox){
-                while(aux->prox && aux->prox->valor == x){
-                    LInt temp = aux->prox->prox;
-                    free(aux->prox);
-                    aux->prox = temp;
-                    count++;
-                }
-            }
+            free(*l);
+            *l = temp;
+            c++;
+        }else{
+            l = &((*l)->prox);
         }
     }
-    return count;
+    return c;
 }
 
 //? 11
 int removeDups (LInt *l){
-    int count = 0;
-    if(*l && (*l)->prox){
-        LInt aux = *l;
-        for(;aux && aux->prox;aux = aux->prox){
-            count += removeAll(&aux->prox, aux->valor);
-        }
+    int c = 0;
+    
+    for(; *l; l = &((*l)->prox)){
+        c += removeAll(&(*l)->prox, (*l)->valor);
     }
-    return count;
+    
+    return c;
 }
 
 //? 12
-void removeFirstOc(LInt *l, int x){
-    if(*l){
-        if((*l)->valor == x){
-            LInt temp = (*l)->prox;
-            free(*l); *l = temp;
-        }else{
-            LInt aux = *l;
-            for(; aux->prox; aux = aux->prox){
-                if(aux->prox->valor == x){
-                    LInt temp = aux->prox->prox;
-                    free(aux->prox); aux->prox = temp;
-                    break;
-                }
-            }
-        }
-    }
-}
 int removeMaiorL (LInt *l){
-    int res = LIntMax(*l);
-    removeFirstOc(l,res);
-    return res;
+    int max = LIntmax(l);
+    
+    while((*l)->valor != max) l = &(*l)->prox;
+    
+    LInt temp = (*l)->prox;
+    free(*l);
+    *l = temp;
+    
+    return max;
 }
 
 //? 13
 void init (LInt *l) {
-    if(*l){
-        if(!(*l)->prox){
-            free(*l); *l = NULL;
-        }else{
-            LInt prev = (*l);
-            LInt curr = (*l)->prox;
-            for(; curr->prox; curr = curr->prox) prev = curr;
-            free(curr); prev->prox = NULL;
-        }
-    } 
+    while((*l)->prox) l = &(*l)->prox;
+    free(*l);
+    *l = NULL;
 }
 
 //? 14
 void appendL (LInt *l, int x){
-    LInt new = (LInt) malloc(sizeof(struct lligada));
-    new->valor = x;
-    new->prox = NULL;
-    if(!*l) *l = new;
-    else{
-        LInt aux = *l;
-        for(; aux->prox; aux = aux->prox);
-        aux->prox = new;
-    }
+    while(*l) l = &(*l)->prox;
+    LInt new = newLInt(x, *l);
+    *l = new;
 }
 
 //? 15
 void concatL (LInt *a, LInt b){
-    if(!*a) *a = b;
-    else{
-        LInt aux = *a;
-        for(; aux->prox; aux = aux->prox);
-        aux->prox = b;
-    }
+    while(*a) a = &(*a)->prox;
+    *a = b;
 }
 
 //? 16
 LInt cloneL (LInt l){
-    LInt clone = NULL;
-    if(l){
-        clone = (LInt) malloc(sizeof(struct lligada));
-        clone->valor = l->valor;
-        clone->prox = NULL;
-
-        LInt auxClone = clone;
-        LInt auxL = l->prox;
-        for(;auxL; auxL = auxL->prox){
-            auxClone->prox = (LInt) malloc(sizeof(struct lligada));
-            auxClone->prox->valor = auxL->valor;
-            auxClone = auxClone->prox;
-            auxClone->prox = NULL;
-        }
+    LInt new = NULL;
+    LInt* newAd = &new;
+    while (l){
+        *newAd = malloc(sizeof(struct lligada));
+        (*newAd)->valor = l->valor;
+        (*newAd)->prox = NULL;
+        newAd = &(*newAd)->prox;
+        l = l->prox;
     }
-    return clone;
+    return new;
 }
 
 //? 17
@@ -307,119 +201,128 @@ LInt cloneRev (LInt l){
 }
 
 //? 18
-int LIntMax(LInt l){
-    LInt aux;
-    int Max = l->valor;
-
-    for(aux = l->prox; aux; aux = aux->prox){
-        if(aux->valor > Max) Max = aux->valor;
+int LIntmax(LInt* l){
+    int max = (*l)->valor;
+    l = &(*l)->prox;
+    
+    while(*l){
+        if(max < (*l)->valor) max = (*l)->valor;
+        l = &(*l)->prox;
     }
-    return Max;
+    
+    return max;
 }
 
 //? 19
 int take (int n, LInt *l){
-    if(n == 0){
-        freeL(*l);
-        *l = NULL;
-        return 0;
+    int c = 0;
+    while(*l && n > 0) {
+        l = &(*l)->prox;
+        n--; c++;
     }
-    int count = 0;
-    LInt aux = *l;
-    for(; aux && n > 1; aux = aux->prox){count++; n--;}
-    if(aux){
-        freeL(aux->prox);
-        aux->prox = NULL;
-        return count+1;
-    }else{
-        return count;
-    }
+    freeL(*l);
+    *l = NULL;
+    return c;
 }
 
 //? 20
 int drop (int n, LInt *l){
-    int count = 0;
-
-    for(; *l && n > 0;){
+    int c = 0;
+    while(*l && n > 0){
         LInt temp = (*l)->prox;
-        free(*l); *l = temp;
-        count++; n--;
+        free(*l);
+        *l = temp;
+        c++; n--;
     }
-
-    return count;
+    return c;
 }
 
 //? 21
 LInt Nforward (LInt l, int N){
-    LInt aux = l;
-    for(; N > 0; aux = aux->prox, N--);
-    return aux;
+    while(N > 0){
+        l = l->prox;
+        N--;
+    }
+    return l;
 }
 
 //? 22
 int listToArray (LInt l, int v[], int N){
-    LInt aux = l;
     int i = 0;
-    for(; aux && i < N; aux = aux->prox){
-        v[i++] = aux->valor;
+    
+    for(; i < N && l; i++, l = l->prox){
+        v[i] = l->valor;
     }
+    
     return i;
 }
 
 //? 23
 LInt arrayToList (int v[], int N){
-    LInt new = NULL;
     int i = 0;
-    if(N > 0){
-        new = (LInt) malloc(sizeof(struct lligada));
-        LInt aux = new;
-        for(; i < N-1; i++, aux = aux->prox){
-            aux->valor = v[i];
-            aux->prox = (LInt) malloc(sizeof(struct lligada));
-        }
-        aux->valor = v[i];
-        aux->prox = NULL;
+    LInt new = NULL;
+    LInt* newAd = &new;
+    
+    for(; i < N; i++, newAd = &(*newAd)->prox){
+        *newAd = malloc(sizeof(struct lligada));
+        (*newAd)->valor = v[i];
+        (*newAd)->prox = NULL;
     }
+    
     return new;
 }
 
 //? 24
 LInt somasAcL (LInt l){
-    LInt Ac = NULL;
+    LInt new = NULL;
+    LInt* newAd = &new;
+    
     if(l){
-        Ac = (LInt) malloc(sizeof(struct lligada));
-        Ac->valor = l->valor;
-        LInt auxL = l->prox;
-        LInt auxAc = Ac;
-        for(; auxL; auxL = auxL->prox, auxAc = auxAc->prox){
-            auxAc->prox = (LInt) malloc(sizeof(struct lligada));
-            auxAc->prox->valor = auxAc->valor + auxL->valor;
+        int ac = l->valor;
+        l = l->prox;
+        *newAd = newLInt(ac, NULL);
+        newAd = &(*newAd)->prox;
+        
+        while(l){
+            ac += l->valor;
+            *newAd = newLInt(ac, NULL);
+            newAd = &(*newAd)->prox;
+            l = l->prox;
         }
-        auxAc->prox = NULL;
     }
-    return Ac;
+    return new;
 }
 
 //? 25
 void remreps (LInt l){
-    LInt aux = l;
-    while(aux){
-        while(aux && aux->prox && aux->valor == aux->prox->valor){
-            LInt temp = aux->prox->prox;
-            free(aux->prox); aux->prox = temp;
+    if(l){
+        int current = l->valor;
+        LInt* lAd = &l->prox;
+        while(*lAd){
+            if((*lAd)->valor == current){
+                LInt temp = (*lAd)->prox;
+                free(*lAd);
+                *lAd = temp;
+            }else{
+                current = (*lAd)->valor;
+                lAd = &(*lAd)->prox;
+            }
         }
-        aux = aux->prox;
     }
 }
 
 //? 26
 LInt rotateL (LInt l){
-    if(!l || !l->prox) return l;
-    LInt head = l; l = l->prox;
-    LInt aux = l;
-    for(; aux->prox; aux = aux->prox);
-    aux->prox = head;
-    head->prox = NULL;
+    if(l && l->prox){
+        LInt* ad = &l;
+        
+        while(*ad) ad = &(*ad)->prox;
+        
+        LInt snd = l->prox;
+        l->prox = NULL;
+        *ad = l;
+        l = snd;
+    }
     return l;
 }
 
