@@ -328,26 +328,27 @@ LInt rotateL (LInt l){
 
 //? 27
 LInt parte (LInt l){
-    if(!l || !l->prox) return NULL;
-    int i = 3;
-    LInt newL = l; LInt y = l->prox;
-    LInt auxNewL = newL; LInt auxY = y;
-    l = l->prox->prox  ; LInt aux = l;
-
-    while(aux){
-        if(i % 2 == 0){
-            auxY->prox = aux;
-            auxY = auxY->prox;
-        }else{
-            auxNewL->prox = aux;
-            auxNewL = auxNewL->prox;
+    LInt y = NULL; LInt* yad = &y;
+    LInt L = l;    LInt* Lad = &l;
+    
+    if(l){
+        int i = 1;
+        Lad = &(*Lad)->prox;
+        l = l->prox;
+        
+        while(l){
+            if(i % 2 == 0){
+                *Lad = l;
+                Lad = &(*Lad)->prox;
+            }else{
+                *yad = l;
+                yad = &(*yad)->prox;
+            }
+            l = l->prox;
+            i++;
         }
-        aux = aux->prox; i++;
+        *Lad = *yad = NULL;
     }
-    auxNewL->prox = NULL;
-    auxY ->prox = NULL;
-
-    l = newL;
     return y;
 }
 
@@ -362,11 +363,13 @@ int altura (ABin a){
 
 //? 29
 ABin cloneAB (ABin a){
-    if(!a) return NULL;
-    ABin new = (ABin) malloc(sizeof(struct nodo));
-    new->valor = a->valor;
-    new->dir = cloneAB(a->dir);
-    new->esq = cloneAB(a->esq);
+    ABin new = NULL;
+    if(a){
+        new = malloc(sizeof(struct nodo));
+        new->valor = a->valor;
+        new->esq = cloneAB(a->esq);
+        new->dir = cloneAB(a->dir);
+    }
     return new;
 }
 
@@ -432,11 +435,15 @@ void posorder (ABin a, LInt *l){
 //? 34
 int depth (ABin a, int x){
     if(!a) return -1;
-    if(a->valor == x) return 0;
+    if(a->valor == x) return 1;
+    
     int e = depth(a->esq,x);
     int d = depth(a->dir,x);
+    
     if(e == -1 && d == -1) return -1;
-    else return 1 + max(e,d);
+    if(e == -1) return 1 + d; 
+    if(d == -1) return 1 + e; 
+    else return 1 + min(e,d);
 }
 
 //? 35
@@ -469,10 +476,11 @@ int pruneAB (ABin *a, int l){
 
 //? 37 
 int iguaisAB (ABin a, ABin b){
-    if(!a && !b) return 1;
-    if(!a || !b) return 0;
-
-    return (a->valor == b->valor) && iguaisAB(a->esq, b->esq) && iguaisAB(a->dir, b->dir);
+return  (!a && !b)               || 
+        ((a && b)                &&
+        (a->valor == b->valor)   &&
+        iguaisAB(a->esq, b->esq) && 
+        iguaisAB(a->dir,b->dir));
 }
 
 //? 38
@@ -600,14 +608,12 @@ int lookupAB (ABin a, int x){
 int depthOrd (ABin a, int x){
     if(!a) return -1;
     if(a->valor == x) return 1;
-
-    if(a->valor > x){
-        int e = depthOrd(a->esq,x);
-        return (e == -1)? -1: e+1;
-    }else{
-        int d = depthOrd(a->dir,x);
-        return (d == -1)? -1: d+1;
-    }
+    
+    int res;
+    if( x < a->valor) res = depthOrd(a->esq, x);
+    else res = depthOrd(a->dir, x);
+    
+    return (res == -1)? -1: 1 + res;
 }
 
 //? 47
@@ -640,30 +646,22 @@ int quantosMaiores (ABin a, int x){
 
 //? 50
 void LTBTAux(LInt l, ABin *a){
-    LInt y = parteAmeio(&l);
-    if(!l) *a = NULL;
     if(l){
+        LInt e = parteAmeio(&l);
+        
+        *a = malloc(sizeof(struct nodo));
         (*a)->valor = l->valor;
-
-        if(!y){
-            (*a)->dir = (*a)->esq = NULL;
-        }else{
-            LInt temp = l->prox;
-            free(l); l = temp;
-
-            (*a)->dir = malloc(sizeof(struct nodo));
-            (*a)->esq = malloc(sizeof(struct nodo));
-            LTBTAux(y,&(*a)->esq);
-            LTBTAux(l,&(*a)->dir);
-        }
+        (*a)->esq = (*a)->dir = NULL;
+        
+        LInt temp = l->prox; free(l); l = temp;
+        
+        LTBTAux(e, &(*a)->esq);
+        LTBTAux(l, &(*a)->dir);
     }
 }
 void listToBTree (LInt l, ABin *a){
     *a = NULL;
-    if(l){
-        *a = malloc(sizeof(struct nodo));
-        LTBTAux(l,a);
-    }
+    LTBTAux(l, a);
 }
 
 //? 51

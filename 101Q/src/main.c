@@ -5,6 +5,10 @@
 #include "Q1.h"
 #include "Q2.h"
 
+int min(int a, int b){
+    return (a < b) ? a : b;
+}
+
 LInt newLInt(int val, LInt rest){
     LInt new = malloc(sizeof(struct lligada));
 
@@ -29,16 +33,13 @@ ABin newABin(int val, ABin left, ABin right){
 }
 
 int main(int argc, char **argv){
-    LInt l = newLInt(1, newLInt(2, newLInt(3, newLInt(4, newLInt(5, NULL)))));
+    LInt l = newLInt(1, newLInt(2, newLInt(3, newLInt(4, newLInt(5, newLInt(6, newLInt(7, NULL)))))));
 
-    LInt clone = cloneL(l);
-    init(&l);
+    ABin a; ABin* A = &a;
 
-    imprimeL(l);
-    imprimeL(clone);
+    listToBTree(l, A);
 
-    freeL(l);
-    freeL(clone);
+    freeAB(a);
 
     return 0;
 }
