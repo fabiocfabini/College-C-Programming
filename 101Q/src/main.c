@@ -32,14 +32,25 @@ ABin newABin(int val, ABin left, ABin right){
     return new;
 }
 
+void sortLInt(LInt *l){
+    if(*l && (*l)->prox){
+        LInt e = parteAmeio(l);
+
+        sortLInt(&e);
+        sortLInt(l);
+
+        mergeL(l, e, *l);
+    }
+}
+
 int main(int argc, char **argv){
-    LInt l = newLInt(1, newLInt(2, newLInt(3, newLInt(4, newLInt(5, newLInt(6, newLInt(7, NULL)))))));
+    LInt l = newLInt(13, newLInt(2, newLInt(3, newLInt(-4, newLInt(52, newLInt(1, newLInt(7, NULL)))))));
 
-    ABin a; ABin* A = &a;
+    sortLInt(&l);
 
-    listToBTree(l, A);
+    imprimeL(l);
 
-    freeAB(a);
+    freeL(l);
 
     return 0;
 }

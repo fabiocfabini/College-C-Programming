@@ -9,7 +9,7 @@ BIN_NAME = main
 CXX = gcc
 LD  = gcc
 
-CXXFLAGS   = -O2 -Wall -ggdb
+CXXFLAGS   = -Wall -ggdb
 
 SRC_DIR = src
 BIN_DIR = bin
