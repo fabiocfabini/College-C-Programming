@@ -2,13 +2,46 @@
 #include <stdlib.h>
 #include "E15_16.h"
 #include "E16_17.h"
+#include "R14_15.h"
 
 int main(int argc, char** argv){
     
-
     return 0;
 }
 
+//* R14_15
+    // Alunos root   = newAluno("fabio", 1000, 14, NULL, NULL);
+    // Alunos rootl  = newAluno("lucas",  900,  2, NULL, NULL);
+    // Alunos rootll = newAluno("luisa",  800, 19, NULL, NULL);
+    // Alunos rootlr = newAluno("pedro",  950, 18, NULL, NULL);
+    // Alunos rootr  = newAluno("maria", 1100, 14, NULL, NULL);
+    // Alunos rootrl = newAluno("sofia", 1050, 18, NULL, NULL);
+    // Alunos rootrr = newAluno("santa", 1200, 20, NULL, NULL);
+    // root->esq = rootl; root->dir = rootr;
+    // rootl->esq = rootll; rootl->dir = rootlr;
+    // rootr->esq = rootrl; rootr->dir = rootrr;
+
+    // int freq[21];
+    // for (int i = 0; i < 21; freq[i++] = 0);
+    // int N = fnotas(root, freq);
+    // printf("There are %d students.\n\n", N);
+    
+    // printf("Rank of %s is %d.\n\n", root->nome, rankAluno(root, root->numero, freq));
+    
+    // StrList nota14;
+    // int n = comNota(root, 14, &nota14);
+    // printf("%d Students with 14: ", n);
+    // StrList aux = nota14;
+    // while(aux){ 
+    //     printf("%s, ", aux->string);
+    //     aux = aux->prox;
+    // } printf("\n\n");
+    // freeStrList(nota14);
+
+    // printf("ClassRoom:\n");
+    // imprime(root);
+
+    // freeAlunos(root);
 
 //* E15_16
     // Colunas col0 = newCol(0, 2, newCol(2, 3, newCol(3, 4, newCol(4, 5, NULL))));
