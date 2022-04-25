@@ -8,7 +8,6 @@
 
 int main(int argc, char **argv)
 {
-    formata(big_text, 100);
 
     return 0;
 }
@@ -145,3 +144,6 @@ int main(int argc, char **argv)
 // }
 
 // if(s.valores) freeCList(s.valores);
+
+//* E17_18
+    // formata(big_text, 100);
