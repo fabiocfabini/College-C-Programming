@@ -3,11 +3,42 @@
 #include "E15_16.h"
 #include "E16_17.h"
 #include "R14_15.h"
+#include "R15_16.h"
 
 int main(int argc, char** argv){
     
+
     return 0;
 }
+
+//* R15_16
+    // char* words[TOP];
+    // int word_count[TOP], i = 0, hist_length = 0;
+    // char word[MAX_WORD_SIZE];
+    // Hist head = NULL;
+
+    // printf("Write something:\n");
+
+    // do
+    // {
+    //     scanf ("%60[^ \n]s", word);
+    //     filter(word);
+    //     hist_length += inc(&head, word);
+
+    // } while (getchar() != '\n');
+
+
+    // if(hist_length > TOP) hist_length = TOP;
+    // for(; i < hist_length; i++){
+    //     words[i] = remMaisFreq(&head, word_count+i);
+    // }
+
+    // for (i = 0; i < hist_length; i++){
+    //     printf("[%d] -> %s, %d\n", i+1, words[i], word_count[i]);
+    // }
+
+    // freeHist(head);
+    // printf("\nEND\n");
 
 //* R14_15
     // Alunos root   = newAluno("fabio", 1000, 14, NULL, NULL);
