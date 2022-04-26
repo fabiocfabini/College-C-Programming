@@ -1,20 +1,23 @@
 #ifndef __E1314__
 #define __E1314__
 
-typedef struct spares {
+typedef struct spares
+{
     int x, y;
     struct spares *prox;
 } Par, *LPares;
 
-typedef struct slist {
+typedef struct slist
+{
     int valor;
     struct slist *prox;
-}*LInt;
+} * LInt;
 
-typedef struct no {
+typedef struct no
+{
     int value;
-    struct no *esq,*dir,*pai;
-}*Tree;
+    struct no *esq, *dir, *pai;
+} * Tree;
 
 // Helpfull functions
 void freePar(LPares z);
@@ -27,7 +30,7 @@ LPares newPar(int x, int y, LPares rest);
 Tree newTree(int val, Tree e, Tree d, Tree parent);
 
 // Exam Questions
-LPares zip (LInt a, LInt b, int *c);
+LPares zip(LInt a, LInt b, int *c);
 void calculaPais(Tree t);
 Tree next(Tree t);
 
