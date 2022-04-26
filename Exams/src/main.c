@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "E13_14.h"
 #include "E15_16.h"
 #include "E16_17.h"
 #include "E17_18.h"
@@ -8,6 +9,23 @@
 
 int main(int argc, char **argv)
 {
+    LInt a = newLInt(1, newLInt(2, newLInt(3, newLInt(4, NULL))));
+    LInt b = newLInt(-1, newLInt(-2, newLInt(-3, newLInt(-4, newLInt(5, NULL)))));
+
+    int len;
+    LPares z = zip(a, b, &len);
+    printf("Size of zip: %d\n", len);
+    printLPares(z);
+
+    freeLInt(a);
+    freeLInt(b);
+    freePar(z);
+
+    Tree root = newTree(1, newTree(2, NULL, NULL, NULL), newTree(3, NULL, NULL, NULL), NULL);
+
+    calculaPais(root);
+
+    freeTree(root);
 
     return 0;
 }
