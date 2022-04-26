@@ -9,23 +9,7 @@
 
 int main(int argc, char **argv)
 {
-    LInt a = newLInt(1, newLInt(2, newLInt(3, newLInt(4, NULL))));
-    LInt b = newLInt(-1, newLInt(-2, newLInt(-3, newLInt(-4, newLInt(5, NULL)))));
 
-    int len;
-    LPares z = zip(a, b, &len);
-    printf("Size of zip: %d\n", len);
-    printLPares(z);
-
-    freeLInt(a);
-    freeLInt(b);
-    freePar(z);
-
-    Tree root = newTree(1, newTree(2, NULL, NULL, NULL), newTree(3, NULL, NULL, NULL), NULL);
-
-    calculaPais(root);
-
-    freeTree(root);
 
     return 0;
 }
@@ -91,6 +75,25 @@ int main(int argc, char **argv)
 // imprime(root);
 
 // freeAlunos(root);
+
+//* E13_14 (Not finished)
+    // LInt a = newLInt(1, newLInt(2, newLInt(3, newLInt(4, NULL))));
+    // LInt b = newLInt(-1, newLInt(-2, newLInt(-3, newLInt(-4, newLInt(5, NULL)))));
+
+    // int len;
+    // LPares z = zip(a, b, &len);
+    // printf("Size of zip: %d\n", len);
+    // printLPares(z);
+
+    // freeLInt(a);
+    // freeLInt(b);
+    // freePar(z);
+
+    // Tree root = newTree(1, newTree(2, NULL, NULL, NULL), newTree(3, NULL, NULL, NULL), NULL);
+
+    // calculaPais(root);
+
+    // freeTree(root);
 
 //* E15_16
 // Colunas col0 = newCol(0, 2, newCol(2, 3, newCol(3, 4, newCol(4, 5, NULL))));
