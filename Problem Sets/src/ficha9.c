@@ -50,9 +50,11 @@ void print2D(ABin a){
 }
 void freeABin(ABin a){
     if(a){
-        freeABin(a->dir);
-        freeABin(a->esq);
+        ABin e_temp = a->esq;
+        ABin d_temp = a->dir;
         free(a);
+        freeABin(e_temp);
+        freeABin(d_temp);
     }
 }
 

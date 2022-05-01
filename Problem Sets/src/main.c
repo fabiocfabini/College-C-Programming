@@ -50,7 +50,7 @@ int main(int argc, char *argv[]){
             upTriangle(10);
 
             printf("\n\t[Drawing a circle]\n");
-            circle(10);
+            circle(40);
 
             printf("\n[END OF SCRIPT]\n");
         }
@@ -290,6 +290,10 @@ int main(int argc, char *argv[]){
             p = maisFreq (dic);
             printf ("\t[Most frequent word]: %s (%d)\n", p->palavra, p->ocorr);
 
+
+            libertaLista (dic);
+
+
             printf ("\n[END OF SCRIPT]\n");
         }
         break;
@@ -453,7 +457,6 @@ int main(int argc, char *argv[]){
 
             freeABin(a2);
 
-
             printf("\n\n[END OF SCRIPT]\n\n");
         }
         break;
@@ -469,7 +472,6 @@ int main(int argc, char *argv[]){
 
             a = RandArvFromArray(v1, N);
 
-
             printf("[START OF SCRIPT]\n\n");
 
             printf("\t[First test tree (%d elements)\n]", N);
@@ -480,7 +482,7 @@ int main(int argc, char *argv[]){
             removeElem(&a,v1[i]);
             print2D(a);
 
-            r = removeMenorMelhor(&a);
+            r = removeMenor(&a);
             printf("\t\t[Removal of smallest element (%d)]\n", r->valor);
             print2D(a);
 
@@ -488,6 +490,7 @@ int main(int argc, char *argv[]){
             removeRaiz(&a);
             print2D(a);
 
+            freeABin(r);
             freeABin(a);
 
 
@@ -532,7 +535,6 @@ int main(int argc, char *argv[]){
             if(Balenced(a) != -1) printf("All good!\n"); else printf("Error\n"); 
 
             freeABin(a);
-
 
             printf("\n[END OF SCRIPT]\n");
         }

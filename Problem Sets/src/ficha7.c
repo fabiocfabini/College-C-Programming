@@ -11,6 +11,7 @@ void libertaLista (Palavras l){
 
     while(l){
         temp = l->prox;
+        free(l->palavra);
         free(l);
         l = temp;
     }
