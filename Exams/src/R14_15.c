@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "R14_15.h"
+#include "../includes/R14_15.h"
 
 // Helpfull Functions
 Alunos newAluno(char nome[50], int numero, int nota, Alunos e, Alunos d){

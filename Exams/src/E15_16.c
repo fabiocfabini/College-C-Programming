@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "E15_16.h"
+#include "../includes/E15_16.h"
 
 // Helper functions
 void freeMat(Mat m){

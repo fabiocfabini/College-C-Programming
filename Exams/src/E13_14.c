@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "E13_14.h"
+#include "../includes/E13_14.h"
 
 // Helper functions
 LPares newPar(int x, int y, LPares rest)
@@ -133,6 +133,6 @@ void calculaPais(Tree t)
 
 Tree next(Tree t)
 {
-    // ???
+    //??????
     return NULL;
 }

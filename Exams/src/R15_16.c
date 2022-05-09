@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include "R15_16.h"
+#include "../includes/R15_16.h"
 
 // Helpfull Functions
 Hist newHist(char* pal, Hist h){

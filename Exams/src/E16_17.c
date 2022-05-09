@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "E16_17.h"
+#include "../includes/E16_17.h"
 
 // Helpfull Functions
 void initStackC(StackC *s, CList c){

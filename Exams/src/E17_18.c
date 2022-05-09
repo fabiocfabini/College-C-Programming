@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
-#include "E17_18.h"
+#include "../includes/E17_18.h"
 
 // Helper functions
 Palavras newPalavra(char *palavra, int comp, Palavras rest)

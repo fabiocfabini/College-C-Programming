@@ -1,15 +1,40 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "E13_14.h"
-#include "E15_16.h"
-#include "E16_17.h"
-#include "E17_18.h"
-#include "R14_15.h"
-#include "R15_16.h"
+#include "../includes/E13_14.h"
+#include "../includes/E15_16.h"
+#include "../includes/E16_17.h"
+#include "../includes/E17_18.h"
+#include "../includes/R14_15.h"
+#include "../includes/R15_16.h"
+
+char big_text[2000] = "Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river named Duden flows by their place and supplies it with the necessary regelialia. It is a paradisematic country, in which roasted parts of sentences fly into your mouth. Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name of Lorem Ipsum decided to leave for the far World of Grammar. The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn't listen. She packed her seven versalia, put her initial into the belt and made herself on the way. When she reached the first hills of the Italic Mountains, she had a last view back on the skyline of her hometown Bookmarksgrove, the headline of Alphabet Village and the subline of her own road, the Line Lane. Pityful a rethoric question ran over her cheek, then she continued her way. On her way she met a copy. The copy warned the Little Blind Text, that where it came from it would have been rewritten a thousand times and everything that was left from its origin would be the word and and the Little Blind Text should turn around and return to its own, safe country. But nothing the copy said could convince her and so it didn't take long until a few insidious Copy Writers ambushed her, made her drunk with Longe and Parole and dragged her into their agency, where they abused her for their projects again and again. And if she hasn't been rewritten, then they are still using her. Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. Separated they live in Bookmarksgrove right at the coast of the Semantics, a large language ocean. A small river";
 
 int main(int argc, char **argv)
 {
+    LInt a = newLInt(1, newLInt(2, newLInt(3, newLInt(4, NULL))));
+    LInt b = newLInt(-1, newLInt(-2, newLInt(-3, newLInt(-4, newLInt(5, NULL)))));
 
+    int len;
+    LPares z = zip(a, b, &len);
+    printf("Size of zip: %d\n", len);
+    printLPares(z);
+
+    freeLInt(a);
+    freeLInt(b);
+    freePar(z);
+
+    Tree root = newTree(1, newTree(2, NULL, NULL, NULL), newTree(3, NULL, NULL, NULL), NULL);
+
+    calculaPais(root);
+
+    Tree inorder = root->esq;
+    root = root->esq;
+    for(int i = 0; i < 3; i++){
+        printf("%d ", inorder->value);
+        inorder = next(inorder);
+    }
+
+    freeTree(root);
     return 0;
 }
 
