@@ -89,7 +89,7 @@ Palavras daLinha(Palavras t, int n)
 {
     Palavras out = NULL;
     Palavras *ad = &t;
-    if (*ad && (*ad)->comp > n)
+    if (*ad && (*ad)->comp >= n)
     {
         out = (*ad)->prox;
         (*ad)->prox = NULL;
@@ -127,7 +127,7 @@ int countWordsAndChars(Palavras p, int *nChars)
         p = p->prox;
         c++;
     }
-    return c;
+    return (c == 1)? c+1: c;;
 }
 
 void escreveLinha(Palavras p, int n)
