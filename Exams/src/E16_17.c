@@ -44,16 +44,14 @@ void freeCList(CList c){
 
 // Exam Questions
 int push (StackC *s, int x){
-    // if current array is full
-    if(s->sp == MAXc){
+    // if current CList is null or array is full
+    if(!s->valores || s->sp == MAXc){
         // create new chunk
         s->sp = 0;
         CList new = malloc(sizeof(struct chunk));
         new->prox = s->valores;
         s->valores = new;
     }
-    // if current Stack is NULL
-    if(!s->valores) s->valores = newCList(NULL); // allocate new chunk
     // push value
     s->valores->vs[s->sp++] = x;
     return 0;
@@ -61,23 +59,21 @@ int push (StackC *s, int x){
 
 
 int pop (StackC *s, int *x){
-    // if current array is empty
-    if(s->sp == 0) return 1;
+    int r;
 
-    // pop value
-    *x = s->valores->vs[--s->sp];
-
-    // if current array is empty
-    if(s->sp == 0){
-        // free current chunk
-        CList temp = s->valores->prox;
-        free(s->valores);
-        s->valores = temp;
-        // if current chunk exists
-        if(s->valores) s->sp = MAXc;
+    if(!s->valores) r = 1;
+    else{
+        r = 0;
+        *x = s->valores->vs[--s->sp];
+        if(s->sp == 0){
+            CList temp = s->valores->prox;
+            free(s->valores);
+            s->valores = temp;
+            if(s->valores) s->sp = MAXc;
+        }
     }
 
-    return 0;
+    return r;
 }
 
 
