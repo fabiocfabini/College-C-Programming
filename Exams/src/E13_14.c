@@ -132,7 +132,19 @@ void calculaPais(Tree t)
 }
 
 Tree next(Tree t)
-{
-    //??????
-    return NULL;
+{   
+    Tree out = NULL;
+    if(t){
+        if(t->dir){
+            t = t->dir;
+            while(t->esq) t = t->esq;
+            out = t;
+        }else{
+            while(t->pai && t->pai->dir == t) t = t->pai;
+            if(t->pai){
+                out = t->pai;
+            }
+        }
+    }
+    return out;
 }
